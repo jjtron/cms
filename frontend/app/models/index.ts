@@ -1,2 +1,1 @@
-export { User } from './User';
-export { Part } from './Part';
+export { Menu } from './Menu';

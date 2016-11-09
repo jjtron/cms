@@ -32,10 +32,12 @@
       'moment':                    'npm:moment',
       'redux':                     'npm:redux/dist/redux.js',
       'reselect':                  'npm:reselect/dist/reselect.js',
+      'angular2-jwt':			   'npm:angular2-jwt/angular2-jwt.js',
 
       // barrels
       'reducers':				   'app/reducers',
-      'actions':				   'app/actions'
+      'actions':				   'app/actions',
+      'redux_barrel':			   'app/redux_barrel'
     },
 
     // packages tells the System loader how to load when no filename and/or no extension
@@ -64,8 +66,12 @@
       reselect: {
           defaultExtension: 'js'
       },
+//      angular2-jwt: {
+//          defaultExtension: 'js'
+//      },
       reducers: { main: 'index.js', defaultExtension: 'js' },
-      actions:  { main: 'index.js', defaultExtension: 'js' }
+      actions:  { main: 'index.js', defaultExtension: 'js' },
+      redux_barrel: { main: 'index.js', defaultExtension: 'js' }
     }
   });
 

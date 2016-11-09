@@ -1,19 +1,23 @@
-import { Component, Inject } from '@angular/core';
-import { Store } from 'redux';
-import { AppStore } from './app-store';
-import { AppState } from './reducers';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {EventService} from './services/EventService';
 
 @Component({
   selector: 'cms-app',
+  styleUrls: [
+    'app/css/styles.css',
+    'app/css/bootstrap.min.css'
+  ],
   template: `
   <div>
-    hello
+    <router-outlet></router-outlet>
   </div>
   `
 })
 
 export class CmsApp {
-  constructor(@Inject(AppStore) private store: Store<AppState>) {
-
-  }
+    constructor(
+        private router: Router,
+        private eventt: EventService) {
+    }
 }

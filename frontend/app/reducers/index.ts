@@ -1,18 +1,15 @@
 import { Reducer, combineReducers } from 'redux';
 
-import { UsersState, UsersReducer } from './UsersReducer';
-import { PartsState, PartsReducer } from './PartsReducer';
+import { MenuState, MenuReducer } from './MenuReducer';
 
-export * from './UsersReducer';
+export * from './MenuReducer';
 
 export interface AppState {
-  users: UsersState;
-  parts: PartsState;
+  menu: MenuState;
 }
 
 const rootReducer: Reducer<AppState> = combineReducers<AppState>({
-  users: UsersReducer,
-  parts: PartsReducer
+  menu: MenuReducer
 });
 
 export default rootReducer;

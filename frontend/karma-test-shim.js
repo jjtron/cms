@@ -17,7 +17,7 @@ function isJsFile(path) {
 }
 
 function isSpecFile(path) {
-  return /\.spec\.(.*\.)?js$/.test(path);
+  return /\.spec[0-9]*\.(.*\.)?js$/.test(path);
 }
 
 function isBuiltFile(path) {

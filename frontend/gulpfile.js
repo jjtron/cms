@@ -27,8 +27,12 @@ gulp.task('clean', function () {
 	    	    './app/reducers/*.map',
 	    	    './app/actions/*.js',
 	    	    './app/actions/*.map',
-	    	    './testing/*.js',
-	    	    './testing/*.map'
+	    	    './app/components/**/*.js',
+	    	    './app/components/**/*.map',
+	    	    './app/services/**/*.js',
+	    	    './app/services/**/*.map',
+	    	    './testing/**/*.js',
+	    	    './testing/**/*.map'
 	    	]);
 });
 

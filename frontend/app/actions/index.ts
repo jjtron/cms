@@ -1,11 +1,7 @@
-import * as UserActions from './UserActions';
-import * as PartActions from './PartActions';
+import * as MenuActions from './MenuActions';
 
-export { UserActions };
-
-export { PartActions };
+export { MenuActions };
 
 export default [
-  UserActions,
-  PartActions
+  MenuActions
 ];

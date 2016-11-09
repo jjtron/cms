@@ -15,7 +15,7 @@ module.exports = function(config) {
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'), // click "Debug" in browser to see it
-      require('karma-htmlfile-reporter') // crashing w/ strange socket error
+      require('karma-spec-reporter')
     ],
 
     customLaunchers: {
@@ -48,8 +48,15 @@ module.exports = function(config) {
       { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
       { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
 
+      // Redux
+      { pattern: 'node_modules/redux/dist/**/*.js', included: false, watched: false },
+      { pattern: 'node_modules/reselect/dist/**/*.js', included: false, watched: false },
+      
       // Underscore
       { pattern: 'node_modules/underscore/underscore.js', included: false, watched: false },
+      
+      // Angular2-jwt
+      { pattern: 'node_modules/angular2-jwt/angular2-jwt.js', included: false, watched: false },
       
       // Paths loaded via module imports:
       // Angular itself
@@ -85,8 +92,7 @@ module.exports = function(config) {
 
     exclude: [],
     preprocessors: {},
-    // disabled HtmlReporter; suddenly crashing w/ strange socket error
-    reporters: ['progress', 'kjhtml'],//'html'],
+    reporters: ['kjhtml', 'spec'],
 
     // HtmlReporter configuration
     htmlReporter: {
