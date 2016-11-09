@@ -1,0 +1,12 @@
+extends layout
+
+block content
+	.container(style='margin-top: 20px; margin-bottom: 20px;')
+		h2= title
+		h4
+			| (For more articles, go to 
+			a(href='https://www.jjtron.com' TARGET="_blank") www.jjtron.com
+			| )
+		:verbatim
+		!{article}
+
