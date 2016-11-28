@@ -17,7 +17,7 @@ https://redis.io/download
 
 SET THE REDIS PASSWORD  
 using redis cli...   
-127.0.0.1:6379> AUTH 'def'  
+127.0.0.1:6379> CONFIG set requirepass 'def'  
 
 START APP  
 go to backend directory  
