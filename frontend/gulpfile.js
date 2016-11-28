@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var del = require('del');
 var run = require('gulp-run');
 var tslint = require("gulp-tslint");
+var typescript = require('gulp-tsc');
 
 gulp.task("tslint", () =>
 gulp.src("./app/**/*.ts")
@@ -12,10 +13,6 @@ gulp.src("./app/**/*.ts")
         emitError: false
     }))
 );
-
-gulp.task('tsc', ['tslint'], function() {
-	return run('npm run tsc').exec();
-});
 
 gulp.task('clean', function () {
 	return del([
@@ -36,3 +33,43 @@ gulp.task('clean', function () {
 	    	]);
 });
 
+var sass = require('gulp-sass');
+
+gulp.task('sass', function () {
+  return gulp.src('./app/sass/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./app/css'));
+});
+ 
+gulp.task('sass:watch', function () {
+  gulp.watch('./app/sass/**/*.scss', ['sass']);
+});
+
+gulp.task('tslint:watch', function () {
+	gulp.watch('./app/**/*.ts', ['tslint']);
+});
+
+gulp.task('compile:watch', function () {
+	gulp.watch('./app/**/*.ts', ['compile']);
+});
+
+gulp.task('compile', ['tslint:watch', 'sass:watch'], function(){
+	  gulp.src(['./app/**/*.ts'])
+	    .pipe(typescript({
+	        "target": "es5",
+	        "module": "commonjs",
+	        "moduleResolution": "node",
+	        "sourceMap": true,
+	        "emitDecoratorMetadata": true,
+	        "experimentalDecorators": true,
+	        "removeComments": false,
+	        "noImplicitAny": true,
+	        "suppressImplicitAnyIndexErrors": true,
+	        "typeRoots": [
+	          "./node_modules/@types/"
+	        ]
+	      }))
+	    .pipe(gulp.dest('app/'))
+});
+
+gulp.task('default', ['compile', 'sass', 'compile:watch'])

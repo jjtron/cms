@@ -13,7 +13,7 @@ import {Store, AppStore, AppState, getMenuState } from '../../redux_barrel';
         <div class="collapse navbar-collapse" id="navbar">
           <ul class="nav navbar-nav">
                 <li [ngClass]="{'active': routerLink === '/dashboard/parts', 'inactive': routerLink !== '/dashboard/parts'}">
-                    <a #parts routerLink="/dashboard/parts">parts</a>
+                    <a #parts routerLink="/dashboard/parts">part</a>
                 </li>
                 <li [ngClass]="{'active': routerLink === '/dashboard/aml', 'inactive': routerLink !== '/dashboard/aml'}">
                     <a #aml routerLink="/dashboard/aml">aml</a>
