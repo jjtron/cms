@@ -19,7 +19,13 @@ export class RegisterForm extends LoginRegisterBase {
     heading: string = 'Register';
     username: AbstractControl;
     password: AbstractControl;
-    admin: AbstractControl;
+    radioGroup: AbstractControl;
+    userGroup: string = 'readonly';
+    radioOptions: any = [
+        {value: 'admin', label: 'Admin'},
+        {value: 'readonly', label: 'ReadOnly'},
+        {value: 'editor', label: 'Editor'}
+    ];
 
     constructor(
         protected fb: FormBuilder,
@@ -31,15 +37,15 @@ export class RegisterForm extends LoginRegisterBase {
                     Validators.required, this.inputValidator])],
                 'password': ['', Validators.compose([
                     Validators.required, this.inputValidator])],
-                'admin': [false],
+                'radioGroup': [],
             });
             this.username = this.loginForm.controls['username'];
             this.password = this.loginForm.controls['password'];
-            this.admin = this.loginForm.controls['admin'];
+            this.radioGroup = this.loginForm.controls['radioGroup'];
     }
 
     submit (form: any) {
-        this.ds.register(form.username, form.password, form.admin)
+        this.ds.register(form.username, form.password, this.userGroup)
             .subscribe(
                 (res: any) => {
                     if (res.status !== 201) {

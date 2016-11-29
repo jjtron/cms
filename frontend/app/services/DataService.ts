@@ -27,14 +27,14 @@ export class DataService {
         .map((res: Response) => res.json());
     }
 
-    register(username: string, password: string, admin: boolean) {
+    register(username: string, password: string, group: any) {
 
         let headers = new Headers();
         headers.append('Content-Type', this.contentType);
 
         return this.http.post(
             this.dbUrl + 'user',
-            JSON.stringify({ username: username, password: password, admin: admin }),
+            JSON.stringify({ username: username, password: password, group: group }),
             { headers: headers }
         );
     }

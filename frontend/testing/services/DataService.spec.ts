@@ -68,14 +68,14 @@ describe('DataService tests', () => {
                 mockBackend.connections.subscribe((c: any) => {
                     expect(c.request.url).toBe('http://localhost:3000/user');
                     expect(c.request.method).toBe(RequestMethod.Post);
-                    expect(c.request._body).toEqual(JSON.stringify({username: 'u', password: 'p', admin: true}));
+                    expect(c.request._body).toEqual(JSON.stringify({username: 'u', password: 'p', group: 'somegroup'}));
                     expect(c.request.headers.has('Content-Type')).toBeTruthy();
                     expect(c.request.headers.get('Content-Type')).toEqual('application/json');
                     
                     let response = new ResponseOptions({ status: 201 });
                     c.mockRespond(new Response(response));
                 });
-                dataService.register('u','p',true)
+                dataService.register('u','p','somegroup')
                     .subscribe((_res: any) => {
                     res = _res;
                 });

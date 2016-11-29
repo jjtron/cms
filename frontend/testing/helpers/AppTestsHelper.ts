@@ -8,8 +8,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppStore } from '../../app/app-store';
 import { AppState, default as reducer} from '../../app/reducers';
 import { createStore, Store } from 'redux';
+import { MaterialModule } from '@angular/material';
 
 import { LoginForm } from '../../app/components/login/LoginForm';
+import { RegisterForm } from '../../app/components/login/RegisterForm';
 import { DataServiceMock } from '../mocks/DataServiceMock';
 
 import { Aml } from '../../app/components/aml/Aml';
@@ -38,7 +40,7 @@ export const routerConfig: Routes = [
     { path: '', component: BlankCmp },
     { path: 'login', component: LoginForm },
     { path: 'dashboard', component: BlankCmp },
-    { path: 'register', component: BlankCmp },
+    { path: 'register', component: RegisterForm },
     { path: 'aml', component: Aml },
     { path: 'parts', component: Parts },
     { path: 'dwgs', component: Dwgs }
@@ -87,12 +89,14 @@ export function configureAppTests() {
         RouterTestingModule,
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MaterialModule.forRoot()
     ],
     declarations: [
         BlankCmp,
         RootCmp,
         LoginForm,
+        RegisterForm,
         Aml,
         Parts,
         Dwgs

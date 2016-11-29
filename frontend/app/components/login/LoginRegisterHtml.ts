@@ -29,13 +29,15 @@ export var LoginRegisterHtml = `
                 </div>
                 
                 <div *ngIf="heading === 'Register'">
-                    <div class="form-group">
-                        <label for="admin">Admin</label>
-                        <input type="checkbox"
-                            [formControl]="loginForm.controls['admin']"
-                            id="admin"
-                            name="admin">
-                    </div>
+
+                    <md-radio-group id="radio-group"
+                        [(ngModel)]="userGroup"
+                        [formControl]="loginForm.controls['radioGroup']">
+                        <div *ngFor="let o of radioOptions" >
+                            <md-radio-button [value]="o.value">{{o.label}}</md-radio-button>
+                        </div>
+                    </md-radio-group>
+
                 </div>
             </form>
         </div>

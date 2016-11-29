@@ -1,6 +1,7 @@
 import { inject, fakeAsync, async } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { By } from '@angular/platform-browser';
 import { DataServiceMock } from '../mocks/DataServiceMock';
 import { DataService } from '../../app/services/DataService';
 import { advance, createRoot, RootCmp, configureAppTests, BlankCmp } from '../helpers/AppTestsHelper';
@@ -95,6 +96,40 @@ describe('LoginForm spec 1', () => {
             advance(fixture);
             expect(location.path()).toEqual('/register');
 
+          })));
+    });
+    
+    describe('Going to register form and clicking on Admin group', () => {
+        it('should change radio group to Admin', fakeAsync(
+          inject([Router, DataService, Location],
+                 (router: Router,
+                  dataServiceMock: DataServiceMock,
+                  location: Location) => {
+            const fixture = createRoot(router, RootCmp);
+            router.navigateByUrl('login');
+            advance(fixture);
+
+            const loginForm = fixture.debugElement.children[1].componentInstance;
+
+            loginForm.register();
+            advance(fixture);
+            expect(location.path()).toEqual('/register');
+                     
+            const registerForm = fixture.debugElement.children[1].componentInstance;
+            expect(registerForm.userGroup).toEqual('readonly');
+            
+            // ref: https://github.com/angular/material2/blob/master/src/lib/radio/radio.spec.ts
+            registerForm.radioOptions = [
+                { value: 'x', label: 'X' },
+                { value: 'y', label: 'Y' },
+                { value: 'z', label: 'Z' }
+            ];
+            advance(fixture);
+            let radioButtons = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
+            radioButtons[0].nativeElement.dispatchEvent(new Event('change'));
+            advance(fixture);
+            expect(registerForm.userGroup).toEqual('x');       
+                     
           })));
     });
 });

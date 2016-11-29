@@ -18,6 +18,8 @@ import { RegisterForm } from './components/login/RegisterForm';
 import { EventService } from './services/EventService';
 import { DashboardModule } from './components/dashboard/DashboardModule';
 
+import { MaterialModule } from '@angular/material';
+
 let devtools: StoreEnhancer<AppState> =
   window['devToolsExtension'] ?
   window['devToolsExtension']() : f => f;
@@ -34,7 +36,8 @@ let store: Store<AppState> = createStore<AppState>(
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(routes),
-    DashboardModule
+    DashboardModule,
+    MaterialModule.forRoot()
     ],
   declarations: [
     CmsApp,

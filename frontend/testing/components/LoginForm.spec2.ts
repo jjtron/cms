@@ -8,6 +8,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { DataService } from '../../app/services/DataService';
 import { DataServiceMock } from '../mocks/DataServiceMock';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '@angular/material';
 
 @Component({
     selector: 'root-cmp',
@@ -49,7 +50,8 @@ describe('Loginform spec 2', () => {
             imports: [
                 RouterModule.forRoot(routes),
                 FormsModule,
-                ReactiveFormsModule
+                ReactiveFormsModule,
+                MaterialModule.forRoot()
             ],
             declarations: [
                 LoginForm,
