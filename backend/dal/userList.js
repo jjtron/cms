@@ -57,15 +57,15 @@ var userListDal = {
     },
 
     authUserByIdAndPassword: function (req) {
-    	var userscore;
+    	var userid;
     	return redis.zscore (req, 'user.name.index', req.body.username)
     		.then((score) => {
-    			userscore = score;
-    			return redis.hget (req, 'user', score, 'password');
+    			userid = score;
+    			return redis.hget (req, 'user', userid, 'password');
     		})
     		.then((password) => {
     			if (password === req.body.password) {
-    				return redis.hget (req, 'user', userscore, 'group');
+    				return redis.hget (req, 'user', userid, 'group');
     			} else {
     				return Promise.reject(new Error('Invalid password'));
     			}
