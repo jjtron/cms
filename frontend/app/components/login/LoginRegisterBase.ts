@@ -1,5 +1,4 @@
 import {FormGroup, FormControl} from '@angular/forms';
-import {DataService} from '../../services/DataService';
 import {Router} from '@angular/router';
 
 export class LoginRegisterBase {

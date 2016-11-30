@@ -1,22 +1,18 @@
 import {Component, Inject} from '@angular/core';
 import {Store, AppStore, AppState, MenuActions, Menu} from '../../redux_barrel';
-import {BASEPATH} from '../dashboard/config';
+import {BASEPATH} from './config';
 
 @Component({
-  selector: 'aml-component',
-  styleUrls: [
-    'app/css/styles.css',
-    'app/css/bootstrap.min.css'
-  ],
-  template: `hello`
+  selector: 'home-component',
+  template: `home`,
 })
 
-export class Aml {
+export class DashboardHome {
 
     constructor (
         @Inject(AppStore) private store: Store<AppState>,
-        @Inject(BASEPATH) private basepath: string) {
-            let currentMenu: Menu = {id: 'aml', path: basepath + 'aml'};
+        @Inject(BASEPATH) public basepath: string) {
+            let currentMenu: Menu = {id: 'home', path: basepath + 'home'};
             store.dispatch(MenuActions.setCurrentMenu(currentMenu));
     }
 

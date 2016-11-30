@@ -18,6 +18,8 @@ import { Aml } from '../../app/components/aml/Aml';
 import { Parts } from '../../app/components/parts/Parts';
 import { Dwgs } from '../../app/components/dwgs/Dwgs';
 
+import {BASEPATH} from '../../app/components/dashboard/config';
+
 let store: Store<AppState> = createStore<AppState>(
   reducer
 );
@@ -79,7 +81,8 @@ export function configureAppTests() {
                 provide: ActivatedRoute,
                 useFactory: (r: Router) => r.routerState.root, deps: [ Router ]
             },
-            { provide: AppStore, useFactory: () => store }
+            { provide: AppStore, useFactory: () => store },
+            { provide: BASEPATH, useValue: '/dashboard/' }
         ]
     }).compileComponents();
 }

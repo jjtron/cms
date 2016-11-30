@@ -10,6 +10,7 @@ import { AppState, default as reducer} from '../../app/reducers';
 import { createStore, Store } from 'redux';
 import {Menu} from '../../app/models';
 import {MenuActions} from '../../app/actions';
+import {BASEPATH} from '../../app/components/dashboard/config';
 
 let store: Store<AppState> = createStore<AppState>(
   reducer
@@ -41,7 +42,8 @@ describe('DashboardMain', () => {
             ],
             providers: [
                 { provide: APP_BASE_HREF, useValue: '/' },
-                { provide: AppStore, useFactory: () => store }
+                { provide: AppStore, useFactory: () => store },
+                { provide: BASEPATH, useValue: '/dashboard/' }
             ]
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(DashboardMain);
