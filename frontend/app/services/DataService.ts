@@ -13,7 +13,7 @@ export class DataService {
         this.contentType = 'application/json';
     }
 
-    login(username: string, password: string) {
+    login (username: string, password: string) {
 
         let headers = new Headers();
         headers.append('Content-Type', this.contentType);
@@ -27,7 +27,7 @@ export class DataService {
         .map((res: Response) => res.json());
     }
 
-    register(username: string, password: string, group: any) {
+    register (username: string, password: string, group: any) {
 
         let headers = new Headers();
         headers.append('Content-Type', this.contentType);
@@ -36,6 +36,17 @@ export class DataService {
             this.dbUrl + 'user',
             JSON.stringify({ username: username, password: password, group: group }),
             { headers: headers }
+        );
+    }
+
+    updateUser (username: string, group: any) {
+        let headers = new Headers();
+        headers.append('Content-Type', this.contentType);
+
+        return this.http.put(
+            this.dbUrl + 'user',
+            JSON.stringify({ username: username, group: group }),
+            { headers: this.getHeaders()}
         );
     }
 

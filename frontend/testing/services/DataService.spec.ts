@@ -35,6 +35,7 @@ describe('DataService tests', () => {
                 },
             ]
         });
+        localStorage.setItem('token', 'somejwt');
     });
 
     describe('login', () => {
@@ -81,6 +82,31 @@ describe('DataService tests', () => {
                 });
                 tick();
                 expect(res.status).toBe(201);
+            }))
+        );
+    });
+
+    describe('updateUser', () => {
+        it('should put user',
+            inject([DataService, MockBackend], fakeAsync((dataService: DataService, mockBackend: MockBackend) => {
+                var res: any; 
+                mockBackend.connections.subscribe((c: any) => {
+                    expect(c.request.url).toBe('http://localhost:3000/user');
+                    expect(c.request.method).toBe(RequestMethod.Put);
+                    expect(c.request._body).toEqual(JSON.stringify({username: 'u', group: 'somegroup'}));
+                    expect(c.request.headers.has('Content-Type')).toBeTruthy();
+                    expect(c.request.headers.get('Content-Type')).toEqual('application/json');
+                    expect(c.request.headers.get('Authorization')).toEqual('Bearer somejwt');
+                    
+                    let response = new ResponseOptions({ status: 204 });
+                    c.mockRespond(new Response(response));
+                });
+                dataService.updateUser('u','somegroup')
+                    .subscribe((_res: any) => {
+                    res = _res;
+                });
+                tick();
+                expect(res.status).toBe(204);
             }))
         );
     });
