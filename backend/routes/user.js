@@ -9,7 +9,7 @@ var logger = require('winston');
 
 var role_mng = require('../role_mng');
 role_mng.use(function(req, act) {
-	if (act === 'do this' && req.user.role === 'admin') {
+	if (act === 'do this' && req.user.group === 'admin') {
 		return true;
 	}
 })
@@ -46,6 +46,16 @@ router
                         res.status(boomErr.output.statusCode);
                         res.json(boomErr.output);
                     });
+            }
+    )
+
+    .put('/user',
+    		jwtDecoder({secret: privateKey}),
+    		role_mng.middleware(),
+    		role_mng.can('do this'),
+            function(req, res) {
+                console.log('DECODED', req.user);
+                res.json('it tests ok');
             }
     )
 

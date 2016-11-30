@@ -17,8 +17,8 @@ router
         function(req, res) {
             dalUserList.authUserByIdAndPassword(req)
                 .then(function(result){
-                    if (result === true) {
-                		var userObj = {username: req.body.username, password: req.body.password};
+                    if (result) {
+                		var userObj = {username: req.body.username, password: req.body.password, group: result};
                 		var token = jwtGenerator(userObj, privateKey);
                 		res.json(token);
                     } else {

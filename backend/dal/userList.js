@@ -38,6 +38,15 @@ var userListDal = {
 	    		});
     		})
     		.then(() => {
+    			// add the user group as readonly
+	    		return redis.hset(req, {
+	    			hashName: 'user',
+	    			id: userid,
+	    			paramName: 'group',
+	    			paramValue: 'readonly'
+	    		});
+    		})
+    		.then(() => {
     			// add the secondary scored set index
 	    		return redis.zadd(req, {
 	    			setName: 'user.name.index',
@@ -48,16 +57,21 @@ var userListDal = {
     },
 
     authUserByIdAndPassword: function (req) {
+    	var userscore;
     	return redis.zscore (req, 'user.name.index', req.body.username)
     		.then((score) => {
+    			userscore = score;
     			return redis.hget (req, 'user', score, 'password');
     		})
     		.then((password) => {
     			if (password === req.body.password) {
-    				return Promise.resolve(true);
+    				return redis.hget (req, 'user', userscore, 'group');
     			} else {
     				return Promise.reject(new Error('Invalid password'));
     			}
+    		})
+    		.then((group) => {
+    			return Promise.resolve(group);
     		})
     		.catch((e) => {
     			return Promise.reject(new Error(e.message));
