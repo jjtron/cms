@@ -117,6 +117,28 @@ var hmset = function (req, params) {
 }
 
 /**
+ * hgetall
+ * returns has parameters
+ * all other outcomes return an error
+ */
+var hgetall = function (req) {
+	var p = new Promise(function(resolve, reject) {
+		req.cmsDb.hgetall('permissions:2085964253',
+			function (err, reply) {
+				if (err) {
+					reject(err);
+				}
+				if (reply) {
+					resolve(reply);
+				} else {
+					reject({message: 'Unknown error; failed to retrieve data'});
+				}
+			});
+	});
+	return p;
+}
+
+/**
  * zadd
  * returns true if added successfully
  * all other outcomes return an error
@@ -147,5 +169,6 @@ module.exports = {
 	sadd: sadd,
 	hset: hset,
 	hmset: hmset,
+	hgetall: hgetall,
 	zadd: zadd
 }
