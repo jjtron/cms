@@ -47,6 +47,16 @@ var userListDal = {
 	    		});
     		})
     		.then(() => {
+    			// add the user group elements
+    			var params = new Array();
+    			params.push('permissions' + ':' + userid);
+    			Object.keys(req.body.group).map((k) => {
+    				params.push(k);
+    				params.push(req.body.group[k]);
+    			});
+	    		return redis.hmset(req, params);
+    		})
+    		.then(() => {
     			// add the secondary scored set index
 	    		return redis.zadd(req, {
 	    			setName: 'user.name.index',

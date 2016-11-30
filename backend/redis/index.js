@@ -95,6 +95,28 @@ var hset = function (req, hashParams) {
 }
 
 /**
+ * hmset
+ * returns true if added successfully
+ * all other outcomes return an error
+ */
+var hmset = function (req, params) {
+	var p = new Promise(function(resolve, reject) {
+		req.cmsDb.hmset(...params,
+			function (err, reply) {
+				if (err) {
+					reject(err);
+				}
+				if (reply) {
+					resolve(true);
+				} else {
+					reject({message: 'Unknown error; failed to post'});
+				}
+			});
+	});
+	return p;
+}
+
+/**
  * zadd
  * returns true if added successfully
  * all other outcomes return an error
@@ -124,5 +146,6 @@ module.exports = {
 	zscore: zscore,
 	sadd: sadd,
 	hset: hset,
+	hmset: hmset,
 	zadd: zadd
 }
