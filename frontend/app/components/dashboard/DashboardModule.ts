@@ -6,19 +6,23 @@ import {Dashboard} from './Dashboard';
 import {Parts} from '../parts/Parts';
 import {Aml} from '../aml/Aml';
 import {Dwgs} from '../dwgs/Dwgs';
+import {User} from '../user/User';
+import { MaterialModule } from '@angular/material';
 
 @NgModule({
     declarations: [
         Dashboard,
         Parts,
         Aml,
-        Dwgs
+        Dwgs,
+        User
     ],
     imports: [
         RouterModule,
         BrowserModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MaterialModule.forRoot()
     ]
 })
 export class DashboardModule { }

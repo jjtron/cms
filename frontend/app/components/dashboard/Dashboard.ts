@@ -21,6 +21,9 @@ import {Store, AppStore, AppState, getMenuState } from '../../redux_barrel';
                 <li [ngClass]="{'active': routerLink === '/dashboard/dwgs', 'inactive': routerLink !== '/dashboard/dwgs'}">
                     <a #dwgs routerLink="/dashboard/dwgs">dwgs</a>
                 </li>
+                <li [ngClass]="{'active': routerLink === '/dashboard/user', 'inactive': routerLink !== '/dashboard/user'}">
+                    <a #user routerLink="/dashboard/user">user</a>
+                </li>
           </ul>
         </div>
       </div>
@@ -34,6 +37,7 @@ export class Dashboard {
     @ViewChild('parts') parts: ElementRef;
     @ViewChild('aml') aml: ElementRef;
     @ViewChild('dwgs') dwgs: ElementRef;
+    @ViewChild('user') user: ElementRef;
 
     constructor (
         @Inject(AppStore) private store: Store<AppState>,
