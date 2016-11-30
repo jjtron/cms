@@ -6,6 +6,8 @@ import {Router} from '@angular/router';
 import {LoginRegisterBase} from './LoginRegisterBase';
 import {LoginRegisterHtml} from './LoginRegisterHtml';
 
+const TEMP_VAR: any = {aml: "editor", dwgs: "editor", parts: "editor", admin: true};
+
 @Component({
   selector: 'register-form',
   styleUrls: [
@@ -45,7 +47,7 @@ export class RegisterForm extends LoginRegisterBase {
     }
 
     submit (form: any) {
-        this.ds.register(form.username, form.password, this.userGroup)
+        this.ds.register(form.username, form.password, TEMP_VAR)
             .subscribe(
                 (res: any) => {
                     if (res.status !== 201) {

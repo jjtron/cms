@@ -69,7 +69,7 @@ describe('DataService tests', () => {
                 mockBackend.connections.subscribe((c: any) => {
                     expect(c.request.url).toBe('http://localhost:3000/user');
                     expect(c.request.method).toBe(RequestMethod.Post);
-                    expect(c.request._body).toEqual(JSON.stringify({username: 'u', password: 'p', group: 'somegroup'}));
+                    expect(c.request._body).toEqual(JSON.stringify({username: 'u', password: 'p', permissions: 'somegroup'}));
                     expect(c.request.headers.has('Content-Type')).toBeTruthy();
                     expect(c.request.headers.get('Content-Type')).toEqual('application/json');
                     
@@ -93,7 +93,7 @@ describe('DataService tests', () => {
                 mockBackend.connections.subscribe((c: any) => {
                     expect(c.request.url).toBe('http://localhost:3000/user');
                     expect(c.request.method).toBe(RequestMethod.Put);
-                    expect(c.request._body).toEqual(JSON.stringify({username: 'u', group: 'somegroup'}));
+                    expect(c.request._body).toEqual(JSON.stringify({username: 'u', permissions: 'somegroup'}));
                     expect(c.request.headers.has('Content-Type')).toBeTruthy();
                     expect(c.request.headers.get('Content-Type')).toEqual('application/json');
                     expect(c.request.headers.get('Authorization')).toEqual('Bearer somejwt');

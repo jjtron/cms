@@ -10,6 +10,7 @@ export class DataService {
 
     constructor(private http: Http) {
         this.dbUrl = 'http://localhost:3000/';
+        //this.dbUrl = 'http://10.0.2.2:3000/';
         this.contentType = 'application/json';
     }
 
@@ -27,25 +28,25 @@ export class DataService {
         .map((res: Response) => res.json());
     }
 
-    register (username: string, password: string, group: any) {
+    register (username: string, password: string, permissions: any) {
 
         let headers = new Headers();
         headers.append('Content-Type', this.contentType);
 
         return this.http.post(
             this.dbUrl + 'user',
-            JSON.stringify({ username: username, password: password, group: group }),
+            JSON.stringify({ username: username, password: password, permissions: permissions }),
             { headers: headers }
         );
     }
 
-    updateUser (username: string, group: any) {
+    updateUser (username: string, permissions: any) {
         let headers = new Headers();
         headers.append('Content-Type', this.contentType);
 
         return this.http.put(
             this.dbUrl + 'user',
-            JSON.stringify({ username: username, group: group }),
+            JSON.stringify({ username: username, permissions: permissions }),
             { headers: this.getHeaders()}
         );
     }

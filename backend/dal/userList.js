@@ -38,21 +38,12 @@ var userListDal = {
 	    		});
     		})
     		.then(() => {
-    			// add the user group as readonly
-	    		return redis.hset(req, {
-	    			hashName: 'user',
-	    			id: userid,
-	    			paramName: 'group',
-	    			paramValue: 'readonly'
-	    		});
-    		})
-    		.then(() => {
-    			// add the user group elements
+    			// add the user permissions object
     			var params = new Array();
     			params.push('permissions' + ':' + userid);
-    			Object.keys(req.body.group).map((k) => {
-    				params.push(k);
-    				params.push(req.body.group[k]);
+    			Object.keys(req.body.permissions).map((key) => {
+    				params.push(key);
+    				params.push(req.body.permissions[key]);
     			});
 	    		return redis.hmset(req, params);
     		})
@@ -75,7 +66,7 @@ var userListDal = {
     		})
     		.then((password) => {
     			if (password === req.body.password) {
-    				return redis.hget (req, 'user', userid, 'group');
+    				return redis.hgetall (req, 'permissions:' + userid);
     			} else {
     				return Promise.reject(new Error('Invalid password'));
     			}
@@ -87,6 +78,27 @@ var userListDal = {
     			return Promise.reject(new Error(e.message));
     		});
     },
+
+    putUserPermissionsByUsername: function (req) {
+    	var userid;
+    	return redis.zscore (req, 'user.name.index', req.body.username)
+    		.then((score) => {
+    			userid = score;
+    			var params = new Array();
+    			params.push('permissions' + ':' + userid);
+    			Object.keys(req.body.permissions).map((key) => {
+    				params.push(key);
+    				params.push(req.body.permissions[key]);
+    			});
+	    		return redis.hmset(req, params);
+    		})
+    		.then(() => {
+    			return Promise.resolve(true);
+    		})
+    		.catch((e) => {
+    			return Promise.reject(new Error(e.message));
+    		});
+    }
 }
 
 module.exports = userListDal;

@@ -121,9 +121,10 @@ var hmset = function (req, params) {
  * returns has parameters
  * all other outcomes return an error
  */
-var hgetall = function (req) {
+var hgetall = function (req, key) {
 	var p = new Promise(function(resolve, reject) {
-		req.cmsDb.hgetall('permissions:2085964253',
+		req.cmsDb.hgetall(
+			key,
 			function (err, reply) {
 				if (err) {
 					reject(err);

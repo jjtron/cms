@@ -50,9 +50,9 @@ export class LoginForm extends LoginRegisterBase {
                         this.decodedJwt = this.jwtHelper.decodeToken(res);
                         localStorage.setItem('token', res);
                         this.store.dispatch(MenuActions.setCurrentMenu({
-                            id: null,
-                            path: null,
-                            access: true // this is the only thing that matters at this point
+                            id: 'home',
+                            path: '/dashboard/home',
+                            access: this.decodedJwt.permissions
                         }));
                         this.router.navigate(['/dashboard']);
                     }
