@@ -1,5 +1,6 @@
 import {Component, Inject} from '@angular/core';
-import {Store, AppStore, AppState, MenuActions, Menu} from '../../redux_barrel';
+import {Store, AppStore, AppState} from '../../redux_barrel';
+import {Base} from '../Base';
 import {BASEPATH} from '../dashboard/config';
 
 @Component({
@@ -7,16 +8,10 @@ import {BASEPATH} from '../dashboard/config';
   template: `dwgs`
 })
 
-export class Dwgs {
-
+export class Dwgs extends Base {
     constructor (
-        @Inject(AppStore) private store: Store<AppState>,
-        @Inject(BASEPATH) private basepath: string) {
-            let currentMenu: Menu = {id: 'dwgs', path: basepath + 'dwgs'};
-            store.dispatch(MenuActions.setCurrentMenu(currentMenu));
-    }
-
-    getState () {
-        return this.store.getState();
+        @Inject(AppStore) protected store: Store<AppState>,
+        @Inject(BASEPATH) protected basepath: string) {
+            super(store, basepath, 'dwgs');
     }
 }

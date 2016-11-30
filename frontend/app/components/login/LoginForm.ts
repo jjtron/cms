@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {FormBuilder, Validators, AbstractControl} from '@angular/forms';
 import {Response} from '@angular/http';
 import {DataService} from '../../services/DataService';
@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {LoginRegisterBase} from './LoginRegisterBase';
 import {LoginRegisterHtml} from './LoginRegisterHtml';
 import {JwtHelper} from 'angular2-jwt';
+import {Store, AppStore, AppState, MenuActions} from '../../redux_barrel';
 
 @Component({
   selector: 'login-form',
@@ -26,7 +27,8 @@ export class LoginForm extends LoginRegisterBase {
     constructor(
         protected fb: FormBuilder,
         protected ds: DataService,
-        protected router: Router) {
+        protected router: Router,
+        @Inject(AppStore) private store: Store<AppState>) {
             super(router);
             this.loginForm = fb.group({
                 'username': ['', Validators.compose([
@@ -47,6 +49,11 @@ export class LoginForm extends LoginRegisterBase {
                     } else {
                         this.decodedJwt = this.jwtHelper.decodeToken(res);
                         localStorage.setItem('token', res);
+                        this.store.dispatch(MenuActions.setCurrentMenu({
+                            id: null,
+                            path: null,
+                            access: true // this is the only thing that matters at this point
+                        }));
                         this.router.navigate(['/dashboard']);
                     }
                 },

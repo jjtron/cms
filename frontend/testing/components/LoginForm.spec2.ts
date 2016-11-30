@@ -9,6 +9,9 @@ import { DataService } from '../../app/services/DataService';
 import { DataServiceMock } from '../mocks/DataServiceMock';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
+import { createStore } from 'redux';
+import { AppState, default as reducer} from '../../app/reducers';
+import { Store, AppStore, MenuActions } from '../../app/redux_barrel';
 
 @Component({
     selector: 'root-cmp',
@@ -39,6 +42,10 @@ export function dispatchEvent(element: any, eventType: any) {
 const BAD_INPUT = 'abcd';
 const GOOD_INPUT = 'abc';
 
+let store: Store<AppState> = createStore<AppState>(
+  reducer
+);
+
 describe('Loginform spec 2', () => {
     let fixture: any;
     let el: any;
@@ -59,7 +66,8 @@ describe('Loginform spec 2', () => {
             ],
             providers: [
                 { provide: APP_BASE_HREF, useValue: '/' },
-                { provide: DataService, useClass: DataServiceMock }
+                { provide: DataService, useClass: DataServiceMock },
+                { provide: AppStore, useFactory: () => store }
             ]
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(LoginForm);

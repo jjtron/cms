@@ -1,7 +1,8 @@
 import {Component, Inject} from '@angular/core';
 import {FormBuilder, AbstractControl, FormGroup} from '@angular/forms';
-import {Store, AppStore, AppState, MenuActions, Menu} from '../../redux_barrel';
+import {Store, AppStore, AppState} from '../../redux_barrel';
 import {BASEPATH} from '../dashboard/config';
+import {Base} from '../Base';
 
 @Component({
   selector: 'user-component',
@@ -18,7 +19,7 @@ import {BASEPATH} from '../dashboard/config';
     `
 })
 
-export class User {
+export class User extends Base {
 
     userForm: FormGroup;
     radioGroup: AbstractControl;
@@ -30,18 +31,13 @@ export class User {
     ];
 
     constructor (
-        @Inject(AppStore) private store: Store<AppState>,
-        private fb: FormBuilder,
-        @Inject(BASEPATH) private basepath: string) {
-            let currentMenu: Menu = {id: 'user', path: basepath + 'user'};
-            store.dispatch(MenuActions.setCurrentMenu(currentMenu));
+        @Inject(AppStore) protected store: Store<AppState>,
+        @Inject(BASEPATH) protected basepath: string,
+        private fb: FormBuilder) {
+            super(store, basepath, 'user');
             this.userForm = fb.group({
                 'radioGroup': []
             });
             this.radioGroup = this.userForm.controls['radioGroup'];
-    }
-
-    getState () {
-        return this.store.getState();
     }
 }
