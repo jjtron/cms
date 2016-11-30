@@ -5,7 +5,7 @@ import { advance, createRoot, RootCmp, configureAppTests, BlankCmp } from '../he
 import { FormGroup, FormControl } from '@angular/forms';
 import {Store, AppStore, AppState, MenuActions, Menu} from '../../app/redux_barrel';
 
-describe('Dashboard routes', () => {
+describe('DashboardMain routes', () => {
     beforeEach(async(() => {
         configureAppTests();
     }));

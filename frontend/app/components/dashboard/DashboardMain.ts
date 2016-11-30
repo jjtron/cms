@@ -31,7 +31,7 @@ import {Store, AppStore, AppState, getMenuState } from '../../redux_barrel';
     <router-outlet></router-outlet>`
 })
 
-export class Dashboard {
+export class DashboardMain {
 
     routerLink: string;
     @ViewChild('parts') parts: ElementRef;

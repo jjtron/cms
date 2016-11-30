@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TestBed, fakeAsync, inject, tick, async } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { Dashboard } from '../../app/components/dashboard/Dashboard';
+import { DashboardMain } from '../../app/components/dashboard/DashboardMain';
 import { Routes } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import { AppStore } from '../../app/app-store';
@@ -26,7 +26,7 @@ export const routes: Routes = [
     { path: 'login', component: RootCmp },
 ];
 
-describe('Dashboard', () => {
+describe('DashboardMain', () => {
     
     let fixture: any;
     
@@ -36,7 +36,7 @@ describe('Dashboard', () => {
                 RouterModule.forRoot(routes)
             ],
             declarations: [
-                Dashboard,
+                DashboardMain,
                 RootCmp
             ],
             providers: [
@@ -44,7 +44,7 @@ describe('Dashboard', () => {
                 { provide: AppStore, useFactory: () => store }
             ]
         }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(Dashboard);
+            fixture = TestBed.createComponent(DashboardMain);
         });
     }));
 
