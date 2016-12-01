@@ -64,7 +64,7 @@ export class DashboardMain {
         ) {
             store.subscribe(() => {
                 let ms = getMenuState(store.getState());
-                this.userAccess = ms.currentMenu.access;
+                this.userAccess = Object.assign(this.userAccess, ms.currentMenu.access);
                 this.routerLink = ms.currentMenu.path;
                 Object.keys(this.path).map((k: string) => {
                     this.path[k] = (this.routerLink === this.basepath + k) ? true : false;
