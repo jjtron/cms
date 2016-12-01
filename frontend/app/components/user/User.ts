@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {FormBuilder, AbstractControl, FormGroup} from '@angular/forms';
+import {FormBuilder, AbstractControl, FormGroup, FormControl, Validators} from '@angular/forms';
 import {Store, AppStore, AppState} from '../../redux_barrel';
 import {BASEPATH} from '../dashboard/config';
 import {Base} from '../Base';
@@ -22,10 +22,12 @@ const DEFAULT_ACCESS = 'noaccess';
                 <md-input [formControl]="userForm.controls['userName']"
                         placeholder="username"
                         style="width: 25%"
-                        (focus)="updateFailed = false">
+                        (focus)="updateFailed = false"
+                        (keyup)="getPermissions($event)">
                 </md-input>
             </div>
-            <md-checkbox [formControl]="userForm.controls['admin']">Admin</md-checkbox>
+            <md-checkbox [formControl]="userForm.controls['admin']"
+                    [checked]="admin.value">Admin</md-checkbox>
             <div [hidden]="admin.value">
                 <md-radio-group *ngFor="let subject of permissionSubjects" style="padding: 10px"
                     [(ngModel)]="permissions[subject]"
@@ -57,6 +59,7 @@ export class User extends Base {
     permissions: any = {};
     tmpPermissions: any = {};
     admin: AbstractControl;
+    adminValue: boolean = false;
     userName: AbstractControl;
     previousAdmin: boolean = false;
     updateFailed: boolean = false;
@@ -79,7 +82,13 @@ export class User extends Base {
                 groupObj[s] = [];
             });
             groupObj.admin = [false];
-            groupObj.userName = [];
+            groupObj.userName = [
+                '',
+                Validators.compose([
+                    Validators.required,
+                    this.inputValidator
+                ])
+            ];
 
             this.userForm = fb.group(groupObj);
 
@@ -108,6 +117,12 @@ export class User extends Base {
             });
     }
 
+    inputValidator(control: FormControl): { [s: string]: boolean } {
+        if (!control.value.match(/^[a-zA-Z0-9]{3}$/)) {
+            return {invalidInput: true};
+        }
+    }
+
     update () {
         let userName = this.userForm.value.userName;
         delete this.userForm.value.userName;
@@ -120,5 +135,22 @@ export class User extends Base {
                 this.updateFailed = true;
             }
         );
+    }
+
+    getPermissions (event: any) {
+        if (this.userForm.valid) {
+            this.ds.getUserPermissions(this.userForm.value.userName)
+                .subscribe((res) => {
+                    console.log(res);
+                    this.permissionSubjects.map((s) => {
+                        this.permissions[s] = res[s];
+                    });
+                    this.userForm.patchValue({admin: (res.admin === 'true')});
+                },
+                (error: Response) => {
+                    console.log(error);
+                }
+            );
+        }
     }
 }

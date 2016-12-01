@@ -71,8 +71,18 @@ var userListDal = {
     				return Promise.reject(new Error('Invalid password'));
     			}
     		})
-    		.then((group) => {
-    			return Promise.resolve(group);
+//    		.then((group) => {
+//    			return Promise.resolve(group);
+//    		})
+    		.catch((e) => {
+    			return Promise.reject(new Error(e.message));
+    		});
+    },
+
+    getUserPermissionsByUsername: function (req) {
+    	return redis.zscore (req, 'user.name.index', req.query.name)
+    		.then((userid) => {
+    			return redis.hgetall (req, 'permissions:' + userid);
     		})
     		.catch((e) => {
     			return Promise.reject(new Error(e.message));
@@ -92,9 +102,9 @@ var userListDal = {
     			});
 	    		return redis.hmset(req, params);
     		})
-    		.then(() => {
-    			return Promise.resolve(true);
-    		})
+//    		.then(() => {
+//    			return Promise.resolve(true);
+//    		})
     		.catch((e) => {
     			return Promise.reject(new Error(e.message));
     		});

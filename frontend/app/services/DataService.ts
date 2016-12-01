@@ -52,6 +52,17 @@ export class DataService {
         );
     }
 
+    getUserPermissions (username: string) {
+        let headers = new Headers();
+        headers.append('Content-Type', this.contentType);
+
+        return this.http.get(
+            this.dbUrl + 'user?name=' + username,
+            { headers: this.getHeaders()}
+        )
+        .map((res: Response) => res.json());
+    }
+
     getAuthToken () {
         return 'Bearer ' + localStorage.getItem('token');
     }
