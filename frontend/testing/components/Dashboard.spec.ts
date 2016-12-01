@@ -52,7 +52,7 @@ describe('DashboardMain', () => {
 
     describe('Menu action', () => {
         it('should make one active other inactive', () => {
-            let currentMenu: Menu = {id: 'aml', path: '/dashboard/aml', access: true};
+            let currentMenu: Menu = {id: 'aml', path: '/dashboard/aml', access: {aml: 'editor'}};
             store.dispatch(MenuActions.setCurrentMenu(currentMenu));
             fixture.detectChanges();
             
