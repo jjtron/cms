@@ -72,4 +72,4 @@ gulp.task('compile', ['tslint:watch', 'sass:watch'], function(){
 	    .pipe(gulp.dest('app/'))
 });
 
-gulp.task('default', ['compile', 'sass', 'compile:watch'])
+gulp.task('default', ['tslint', 'compile', 'sass', 'compile:watch'])
