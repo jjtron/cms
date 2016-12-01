@@ -54,6 +54,7 @@ export class User extends Base {
         {value: 'noaccess', label: 'NoAccess'}
     ];
     permissions: any = {};
+    tmpPermissions: any = {};
     admin: AbstractControl;
     userName: AbstractControl;
     previousAdmin: boolean = false;
@@ -69,6 +70,7 @@ export class User extends Base {
             this.permissionSubjects.map((s) => {
                 this.permissions[s] = DEFAULT_ACCESS;
             });
+            Object.assign(this.tmpPermissions, this.permissions);
 
             let groupObj: any = {};
             this.permissionSubjects.map((s) => {
@@ -94,12 +96,11 @@ export class User extends Base {
                     this.previousAdmin = true;
                     return;
                 } else if (this.previousAdmin) {
-                    this.permissionSubjects.map((s) => {
-                        this.permissions[s] = DEFAULT_ACCESS;
-                    });
+                    Object.assign(this.permissions, this.tmpPermissions);
                     this.previousAdmin = false;
                     return;
                 } else {
+                    Object.assign(this.tmpPermissions, this.permissions);
                     return;
                 }
             });
