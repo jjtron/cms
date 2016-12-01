@@ -9,8 +9,9 @@ export class DataService {
     contentType: string;
 
     constructor(private http: Http) {
-        this.dbUrl = 'http://localhost:3000/';
-        // this.dbUrl = 'http://10.0.2.2:3000/';
+        let protocol: string = window.location.protocol + '//';
+        let hostname: string = window.location.hostname;
+        this.dbUrl = protocol + hostname + ':3000/';
         this.contentType = 'application/json';
     }
 
