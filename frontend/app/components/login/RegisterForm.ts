@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 import {LoginRegisterBase} from './LoginRegisterBase';
 import {LoginRegisterHtml} from './LoginRegisterHtml';
 
-const TEMP_VAR: any = {aml: "editor", dwgs: "editor", parts: "editor", admin: true};
+const DEFAULT_PERMISSIONS: any = {admin: false};
 
 @Component({
   selector: 'register-form',
@@ -21,14 +21,6 @@ export class RegisterForm extends LoginRegisterBase {
     heading: string = 'Register';
     username: AbstractControl;
     password: AbstractControl;
-    radioGroup: AbstractControl;
-    userGroup: string = 'readonly';
-    radioOptions: any = [
-        {value: 'admin', label: 'Admin'},
-        {value: 'readonly', label: 'ReadOnly'},
-        {value: 'editor', label: 'Editor'}
-    ];
-
     constructor(
         protected fb: FormBuilder,
         protected ds: DataService,
@@ -38,16 +30,14 @@ export class RegisterForm extends LoginRegisterBase {
                 'username': ['', Validators.compose([
                     Validators.required, this.inputValidator])],
                 'password': ['', Validators.compose([
-                    Validators.required, this.inputValidator])],
-                'radioGroup': [],
+                    Validators.required, this.inputValidator])]
             });
             this.username = this.loginForm.controls['username'];
             this.password = this.loginForm.controls['password'];
-            this.radioGroup = this.loginForm.controls['radioGroup'];
     }
 
     submit (form: any) {
-        this.ds.register(form.username, form.password, TEMP_VAR)
+        this.ds.register(form.username, form.password, DEFAULT_PERMISSIONS)
             .subscribe(
                 (res: any) => {
                     if (res.status !== 201) {

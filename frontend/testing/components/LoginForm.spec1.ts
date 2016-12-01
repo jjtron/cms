@@ -100,7 +100,7 @@ describe('LoginForm spec 1', () => {
     });
     
     describe('Going to register form and clicking on Admin group', () => {
-        it('should change radio group to Admin', fakeAsync(
+        xit('should change radio group to Admin', fakeAsync(
           inject([Router, DataService, Location],
                  (router: Router,
                   dataServiceMock: DataServiceMock,

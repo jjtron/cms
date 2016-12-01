@@ -27,18 +27,6 @@ export var LoginRegisterHtml = `
                 <div *ngIf="heading === 'Login'">
                     <button id="register-button" (click)="register()" class="btn btn-primary">Register</button>
                 </div>
-                
-                <div *ngIf="heading === 'Register'">
-
-                    <md-radio-group id="radio-group"
-                        [(ngModel)]="userGroup"
-                        [formControl]="loginForm.controls['radioGroup']">
-                        <div *ngFor="let o of radioOptions" >
-                            <md-radio-button [value]="o.value">{{o.label}}</md-radio-button>
-                        </div>
-                    </md-radio-group>
-
-                </div>
             </form>
         </div>
     </div>
