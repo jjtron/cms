@@ -7,6 +7,9 @@ var express = require('express');
 //     for how redis db gets password set
 var redisDb = require('express-redis')(6379, 'localhost', {password: 'def'}, 'cmsDb');
 
+// ref https://github.com/expressjs/cors
+var cors = require('cors')
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -21,6 +24,7 @@ var login = require('./routes/login');
 var winstonLogger = require('./log.js');
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
