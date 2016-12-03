@@ -3,6 +3,7 @@ var del = require('del');
 var run = require('gulp-run');
 var tslint = require("gulp-tslint");
 var typescript = require('gulp-tsc');
+var browserSync = require('browser-sync').create();
 
 gulp.task("tslint", () =>
 gulp.src("./app/**/*.ts")
@@ -72,4 +73,23 @@ gulp.task('compile', ['tslint:watch', 'sass:watch'], function(){
 	    .pipe(gulp.dest('app/'))
 });
 
-gulp.task('default', ['tslint', 'compile', 'sass', 'compile:watch'])
+gulp.task('js-watch', function (done) {
+    browserSync.reload();
+    done();
+});
+
+gulp.task('default', ['browser-sync:watch'], function () {
+
+    // Serve files from the root of this project
+    browserSync.init({
+        server: {
+            baseDir: "./"
+        }
+    });
+
+    // add browserSync.reload to the tasks array to make
+    // all browsers reload after tasks are complete.
+    gulp.watch("app/**/*.js", ['js-watch']);
+});
+
+gulp.task('browser-sync:watch', ['tslint', 'compile', 'sass', 'compile:watch'])
