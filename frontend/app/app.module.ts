@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { RouterModule } from '@angular/router';
-import { APP_BASE_HREF } from '@angular/common';
 import { routes } from './routes';
 
 import { createStore, Store, compose, StoreEnhancer } from 'redux';
@@ -19,6 +18,8 @@ import { EventService } from './services/EventService';
 import { DashboardModule } from './components/dashboard/DashboardModule';
 
 import { MaterialModule } from '@angular/material';
+
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 let devtools: StoreEnhancer<AppState> =
   window['devToolsExtension'] ?
@@ -45,7 +46,7 @@ let store: Store<AppState> = createStore<AppState>(
     RegisterForm
     ],
   providers: [
-    { provide: APP_BASE_HREF, useValue: '/' },
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     { provide: AppStore, useFactory: () => store },
     DataService,
     EventService
