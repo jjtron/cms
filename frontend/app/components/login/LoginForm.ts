@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 import {LoginRegisterBase} from './LoginRegisterBase';
 import {LoginRegisterHtml} from './LoginRegisterHtml';
 import {JwtHelper} from 'angular2-jwt';
-import {Store, AppStore, AppState, MenuActions} from '../../redux_barrel';
+import {Store, AppStore, AppState} from '../../redux_barrel';
 
 @Component({
   selector: 'login-form',
