@@ -7,6 +7,7 @@ import {Store, AppStore, AppState, MenuActions, Menu} from '../../app/redux_barr
 
 describe('DashboardMain routes', () => {
     beforeEach(async(() => {
+        localStorage.setItem('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjEyMyIsInBhc3N3b3JkIjoiMTIzIiwicGVybWlzc2lvbnMiOnsiYW1sIjoiZWRpdG9yIiwiZHdncyI6ImVkaXRvciIsInBhcnRzIjoiZWRpdG9yIiwiYWRtaW4iOiJ0cnVlIiwiaG9tZSI6InRydWUifSwiaWF0IjoxNDgwODA5MTQ5fQ.OEGk8XjOpRcofrLF2vJIqufTrCc4u6dNm0JIbUe5pvU');
         configureAppTests();
     }));
 

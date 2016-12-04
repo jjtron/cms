@@ -32,6 +32,7 @@ describe('DashboardMain', () => {
     let fixture: any;
     
     beforeEach(async(() => {
+        localStorage.removeItem('token');
         TestBed.configureTestingModule({
             imports: [
                 RouterModule.forRoot(routes)
@@ -51,15 +52,14 @@ describe('DashboardMain', () => {
     }));
 
     describe('Menu action', () => {
-        it('should make one active other inactive', () => {
+        it('should make only one menu element visible and active', () => {
+
             let currentMenu: Menu = {id: 'aml', path: '/dashboard/aml', access: {aml: 'editor'}};
             store.dispatch(MenuActions.setCurrentMenu(currentMenu));
             fixture.detectChanges();
             
-            let itema = fixture.debugElement.query(By.css("li[class='active'] a")).nativeElement;
-            let itemb = fixture.debugElement.query(By.css("li[class='inactive'] a")).nativeElement;
-            expect(itema.innerHTML).toContain('aml');
-            expect(itemb.innerHTML).not.toContain('aml');
+            let item = fixture.debugElement.query(By.css("li[class='active'] a")).nativeElement;
+            expect(item.innerHTML).toContain('aml');
         });
     });
 });

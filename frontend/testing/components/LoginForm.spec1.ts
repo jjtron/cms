@@ -7,12 +7,12 @@ import { DataService } from '../../app/services/DataService';
 import { advance, createRoot, RootCmp, configureAppTests, BlankCmp } from '../helpers/AppTestsHelper';
 import { FormGroup, FormControl } from '@angular/forms';
 
-const jwt: string = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbSIsInBhc3N3b3JkIjoiYWRtIiwiaWF0IjoxNDc5ODQ1MDM4fQ.0gNHDKui-A868qIC8YMSDI0JIkUyfSUWKF-WUybQKwA';
+const jwt: string = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjEyMyIsInBhc3N3b3JkIjoiMTIzIiwicGVybWlzc2lvbnMiOnsiYW1sIjoiZWRpdG9yIiwiZHdncyI6ImVkaXRvciIsInBhcnRzIjoiZWRpdG9yIiwiYWRtaW4iOiJ0cnVlIiwiaG9tZSI6InRydWUifSwiaWF0IjoxNDgwODA5MTQ5fQ.OEGk8XjOpRcofrLF2vJIqufTrCc4u6dNm0JIbUe5pvU';
 
 describe('LoginForm spec 1', () => {
     beforeEach(async(() => {
         configureAppTests();
-        localStorage.setItem('token', '');
+        localStorage.removeItem('token');
     }));
 
     describe('On route to login form', () => {
@@ -51,7 +51,7 @@ describe('LoginForm spec 1', () => {
             loginForm.submit({username: 'u', password: 'p'});
             advance(fixture);
 
-            expect(loginForm.decodedJwt.username).toBe('adm');
+            expect(loginForm.decodedJwt.username).toBe('123');
             expect(localStorage.getItem('token')).toBe(jwt);
             expect(fixture.debugElement.children[1].componentInstance instanceof BlankCmp).toBe(true);
 
