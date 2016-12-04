@@ -5,6 +5,7 @@ import {BASEPATH} from '../dashboard/config';
 import {Base} from '../Base';
 import {DataService} from '../../services/DataService';
 import {Response} from '@angular/http';
+import {Router} from '@angular/router';
 
 const DEFAULT_ACCESS = 'noaccess';
 
@@ -64,8 +65,9 @@ export class User extends Base {
         @Inject(AppStore) protected store: Store<AppState>,
         @Inject(BASEPATH) protected basepath: string,
         private fb: FormBuilder,
-        private ds: DataService) {
-            super(store, basepath, 'user');
+        private ds: DataService,
+        protected router: Router) {
+            super(store, basepath, 'user', router);
 
             this.permissionSubjects.map((s) => {
                 this.permissions[s] = DEFAULT_ACCESS;
@@ -109,6 +111,7 @@ export class User extends Base {
     update () {
         let userName = this.userForm.value.userName;
         delete this.userForm.value.userName;
+        this.userForm.value.home = true; // set home default to true
         this.ds.updateUser(userName, this.userForm.value)
             .subscribe((res: any) => {
                 this.updateFailed = false;

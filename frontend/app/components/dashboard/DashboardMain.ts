@@ -1,6 +1,7 @@
 import {Component, Inject, ViewChild, ElementRef, Renderer} from '@angular/core';
 import {Store, AppStore, AppState, getMenuState } from '../../redux_barrel';
 import {BASEPATH} from './config';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'dashboard-component',
@@ -13,7 +14,7 @@ import {BASEPATH} from './config';
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbar">
           <ul class="nav navbar-nav">
-                <li [class.inactive]="!path.home" [class.active]="path.home">
+                <li [class.inactive]="!path.home" [class.active]="path.home" *ngIf="userAccess.home === 'true'">
                     <a #home routerLink="{{basepath}}home">home</a>
                 </li>
                 <li [class.inactive]="!path.parts" [class.active]="path.parts" *ngIf="userAccess.parts !== 'noaccess'">
@@ -51,16 +52,18 @@ export class DashboardMain {
         user:  false,
     };
     userAccess: any = {
-        parts: 'noaccess',
-        aml:   'noaccess',
-        dwgs:  'noaccess',
-        admin: 'false'
+        home:       'false',
+        parts:      'noaccess',
+        aml:        'noaccess',
+        dwgs:       'noaccess',
+        admin:      'false'
     };
 
     constructor (
         @Inject(AppStore) private store: Store<AppState>,
         @Inject(BASEPATH) private basepath: string,
-        private renderer: Renderer
+        private renderer: Renderer,
+        private router: Router
         ) {
             store.subscribe(() => {
                 let ms = getMenuState(store.getState());
@@ -70,7 +73,9 @@ export class DashboardMain {
                     this.path[k] = (this.routerLink === this.basepath + k) ? true : false;
                 });
                 setTimeout(() => {
-                    this.renderer.invokeElementMethod(this[ms.currentMenu.id].nativeElement, 'focus');
+                    if (this[ms.currentMenu.id] !== 'undefined') {
+                        this.renderer.invokeElementMethod(this[ms.currentMenu.id].nativeElement, 'focus');
+                    }
                 }, 0);
             });
     }

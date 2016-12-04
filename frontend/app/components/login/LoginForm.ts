@@ -49,11 +49,6 @@ export class LoginForm extends LoginRegisterBase {
                     } else {
                         this.decodedJwt = this.jwtHelper.decodeToken(res);
                         localStorage.setItem('token', res);
-                        this.store.dispatch(MenuActions.setCurrentMenu({
-                            id: 'home',
-                            path: '/dashboard/home',
-                            access: this.decodedJwt.permissions
-                        }));
                         this.router.navigate(['/dashboard']);
                     }
                 },
