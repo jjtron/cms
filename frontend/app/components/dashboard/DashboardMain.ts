@@ -3,6 +3,14 @@ import {Store, AppStore, AppState, getMenuState } from '../../redux_barrel';
 import {BASEPATH} from './config';
 import {Router} from '@angular/router';
 
+// NOTES:
+// this can be used by first doing package.json update, i.e. ...
+//     npm install --save @types/jquery
+// which puts 
+//     "@types/jquery": "^2.0.34",
+// into package.json
+import * as $ from 'jquery';
+
 @Component({
   selector: 'dashboard-component',
   styleUrls: [
@@ -88,5 +96,8 @@ export class DashboardMain {
                     }
                 }, 0);
             });
+
+        // then you can use jquery as $
+        console.log($.isArray([]));
     }
 }
