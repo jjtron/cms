@@ -6,7 +6,7 @@ import {EventService} from './services/EventService';
   selector: 'cms-app',
   styleUrls: [
     'app/css/styles.css',
-    'app/css/bootstrap.min.css'
+    ''
   ],
   template: `
   <div>

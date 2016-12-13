@@ -6,13 +6,23 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'dashboard-component',
   styleUrls: [
-    'app/css/styles.css',
-    'app/css/bootstrap.min.css'
+    'app/css/styles.css'
   ],
   template: `
     <nav class="navbar navbar-static-top">
       <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle"
+                  data-toggle="collapse" data-target="#menu-navbar"
+                  style="border: 1px solid white !important; margin-top: 4px !important;
+                         margin-bottom: 0px !important; padding-top: 2px; padding-bottom: 3px">
+            <span class="icon-bar" style="background-color: white"></span>
+            <span class="icon-bar" style="background-color: white"></span>
+            <span class="icon-bar" style="background-color: white"></span> 
+          </button>
+          <div class="navbar-brand"  style="color: white">Menu</div>
+        </div>
+        <div class="collapse navbar-collapse" id="menu-navbar">
           <ul class="nav navbar-nav">
                 <li [class.inactive]="!path.home" [class.active]="path.home" *ngIf="userAccess.home === 'true'">
                     <a #home routerLink="{{basepath}}home">home</a>

@@ -7,8 +7,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'aml-component',
   styleUrls: [
-    'app/css/styles.css',
-    'app/css/bootstrap.min.css'
+    'app/css/styles.css'
   ],
   template: `hello`
 })

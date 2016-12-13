@@ -12,8 +12,7 @@ const DEFAULT_ACCESS = 'noaccess';
 @Component({
   selector: 'user-component',
   styleUrls: [
-    'app/css/styles.css',
-    'app/css/bootstrap.min.css'
+    'app/css/styles.css'
   ],
   template: `
     <div class="col-md-6 col-md-offset-3">

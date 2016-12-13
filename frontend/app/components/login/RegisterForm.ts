@@ -11,8 +11,7 @@ const DEFAULT_PERMISSIONS: any = {admin: false};
 @Component({
   selector: 'register-form',
   styleUrls: [
-    'app/css/styles.css',
-    'app/css/bootstrap.min.css'
+    'app/css/styles.css'
   ],
   template: LoginRegisterHtml
 })

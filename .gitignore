@@ -7,5 +7,5 @@ frontend/**/*.js.map
 !frontend/systemjs*.js
 !frontend/gulpfile.js
 backend/error.log
-frontend/app/css/materials.css
+frontend/app/css/*.css
 npm-debug.log

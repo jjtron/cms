@@ -34,6 +34,8 @@
       'redux':                     'npm:redux/dist/redux.js',
       'reselect':                  'npm:reselect/dist/reselect.js',
       'angular2-jwt':			   'npm:angular2-jwt/angular2-jwt.js',
+      'jquery':			   		   'npm:jquery/dist/jquery.min.js',
+      'bootstrap':			   	   'npm:bootstrap/dist/js/bootstrap.min.js',
 
       // barrels
       'reducers':				   'app/reducers',

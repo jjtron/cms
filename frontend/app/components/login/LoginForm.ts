@@ -11,8 +11,7 @@ import {Store, AppStore, AppState} from '../../redux_barrel';
 @Component({
   selector: 'login-form',
   styleUrls: [
-    'app/css/styles.css',
-    'app/css/bootstrap.min.css'
+    'app/css/styles.css'
   ],
   template: LoginRegisterHtml
 })
