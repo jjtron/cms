@@ -40,7 +40,15 @@
       // barrels
       'reducers':				   'app/reducers',
       'actions':				   'app/actions',
-      'redux_barrel':			   'app/redux_barrel'
+      'redux_barrel':			   'app/redux_barrel',
+      
+      // css loader and node_modules bootstrap css
+      'css':					   'node_modules/systemjs-plugin-css/css.js',
+      'bootstrapcss':			   'npm:bootstrap/dist/css/bootstrap.min.css'
+    },
+
+    meta: {
+        '*.css': { loader: 'css' }
     },
 
     // packages tells the System loader how to load when no filename and/or no extension

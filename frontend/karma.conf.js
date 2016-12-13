@@ -50,7 +50,7 @@ module.exports = function(config) {
       
       // Underscore
       { pattern: 'node_modules/underscore/underscore.js', included: false, watched: false },
-      
+
       // Angular2-jwt
       { pattern: 'node_modules/angular2-jwt/angular2-jwt.js', included: false, watched: false },
       
