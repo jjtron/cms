@@ -1,5 +1,7 @@
 // #docregion
 module.exports = function(config) {
+	
+  console.log('ENSURE THAT SCSS FILES ARE COMPILED');
 
   var appBase    = 'app/';       // transpiled app JS and map files
   var appSrcBase = 'app/';       // app source TS files

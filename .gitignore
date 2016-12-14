@@ -3,6 +3,7 @@ backend/node_modules
 frontend/**/*.js
 frontend/**/*.js.map
 .project
+!frontend/build.js
 !frontend/karma*.js
 !frontend/systemjs*.js
 !frontend/gulpfile.js
