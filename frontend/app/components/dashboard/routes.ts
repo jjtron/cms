@@ -6,7 +6,7 @@ import {Routes} from '@angular/router';
 import {User} from '../user/User';
 
 export const dashboardRoutes: Routes = [
-    { path: '', redirectTo: 'home' },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: DashboardHome },
     { path: 'aml', component: Aml },
     { path: 'parts', component: Parts },

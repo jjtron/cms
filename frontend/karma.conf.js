@@ -15,8 +15,8 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
     plugins: [
       require('karma-jasmine'),
-      //require('karma-chrome-launcher'),
-      require('karma-phantomjs-launcher'),
+      require('karma-chrome-launcher'),
+      //require('karma-phantomjs-launcher'), BUSTED ON UPGRADE TO ANGULAR VERSION 2.3
       require('karma-jasmine-html-reporter'), // click "Debug" in browser to see it
       require('karma-spec-reporter')
     ],
@@ -106,8 +106,8 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    //browsers: ['Chrome'],
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
+    //browsers: ['PhantomJS'], BUSTED ON UPGRADE TO ANGULAR VERSION 2.3
     singleRun: false,
     browserNoActivityTimeout: 100000
   })
