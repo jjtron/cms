@@ -59,7 +59,7 @@ describe('DashboardMain', () => {
             fixture.detectChanges();
             
             let item = fixture.debugElement.query(By.css("li[class='active'] a")).nativeElement;
-            expect(item.innerHTML).toContain('aml');
+            expect(item.innerHTML).toContain('AML');
         });
     });
 });

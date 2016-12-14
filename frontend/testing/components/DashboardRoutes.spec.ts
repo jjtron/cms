@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { advance, createRoot, RootCmp, configureAppTests, BlankCmp } from '../helpers/AppTestsHelper';
 import { FormGroup, FormControl } from '@angular/forms';
 import {Store, AppStore, AppState, MenuActions, Menu} from '../../app/redux_barrel';
+import { DataServiceMock } from '../mocks/DataServiceMock';
+import { tick } from '@angular/core/testing';
 
 describe('DashboardMain routes', () => {
     beforeEach(async(() => {
@@ -35,14 +37,20 @@ describe('DashboardMain routes', () => {
         it('runs constructor', fakeAsync(
           inject([Router, Location],
                  (router: Router,
-                  location: Location) => {
+                  location: Location,
+                  ds: DataServiceMock) => {
             const fixture = createRoot(router, RootCmp);
 
             router.navigateByUrl('parts');
             advance(fixture);
             expect(location.path()).toEqual('/parts');
 
+            // this gets over the .debounceTime(400) in the ngOnInit() method
+            tick(400);
+            tick(400);
+
             let component: any = fixture.debugElement.children[1].componentInstance;
+
             let appState: AppState = component.getState();
             let id: string = appState.menu.currentMenu.id;
             let path: string = appState.menu.currentMenu.path;

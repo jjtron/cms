@@ -5,12 +5,14 @@ import 'rxjs/add/observable/throw';
 
 export class DataServiceMock extends SpyObject {
     login: SpyObject;
+    getSubset: SpyObject;
     fakeResponse: any;
 
     constructor() {
         super(DataService);
         this.fakeResponse = null;
         this.login = this.spy('login').andReturn(this);
+        this.getSubset = this.spy('getSubset').andReturn([]);
     }
 
     setAltLoginSpy () {

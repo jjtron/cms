@@ -27,9 +27,11 @@ router
                 })
                 .catch(function(error){
                     var boomErr;
-                    if (error.message === 'Username not found') {
+                    if (error.message.startsWith('Entity not found')) {
                         boomErr = Boom.badData(error.message);
-                    } else if (error.message === 'Invalid password') {
+                    } else if (error.message.startsWith('Redis method error')) {
+	                    boomErr = Boom.badGateway(error.message);
+	                } else if (error.message === 'Invalid password') {
                         boomErr = Boom.unauthorized(error.message);
                     } else {
                         boomErr = Boom.badImplementation('Internal Server Error')

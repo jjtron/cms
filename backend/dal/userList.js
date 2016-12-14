@@ -14,10 +14,25 @@ var userListDal = {
     	var userid = rn({min: 1000000000, max: 9999999999, integer: true});
     	
     	// ensure the username is not used already
-    	return redis.sadd(req, 'username-set', req.body.username)
-    		.then(() => {
-    			// ensure the new user id is not used already
-    			return redis.sadd(req, 'userid-set', userid);
+    	return redis.sscan(req, 'username-set', req.body.username)
+    		.then((r) => {
+    			if (!r) {
+    				// ensure the new user id is not used already
+    				return redis.sscan(req, userid, 'userid-set');
+    			} else {
+    				return Promise.reject({message: 'Duplicate key: username'});
+    			}
+    		})
+    		.then((r) => {
+    			if (!r) {
+					var multiSet = [
+					    {setName: 'username-set', value: req.body.username},
+					    {setName: 'userid-set', value: userid}
+		    		];
+					return redis.multiSetAdd(req, multiSet, 'username');
+        		} else {
+    				return Promise.reject({message: 'Duplicate key: user id'});
+    			}
     		})
     		.then(() => {
     			// add the user username
@@ -71,9 +86,6 @@ var userListDal = {
     				return Promise.reject(new Error('Invalid password'));
     			}
     		})
-//    		.then((group) => {
-//    			return Promise.resolve(group);
-//    		})
     		.catch((e) => {
     			return Promise.reject(new Error(e.message));
     		});
@@ -102,9 +114,6 @@ var userListDal = {
     			});
 	    		return redis.hmset(req, params);
     		})
-//    		.then(() => {
-//    			return Promise.resolve(true);
-//    		})
     		.catch((e) => {
     			return Promise.reject(new Error(e.message));
     		});

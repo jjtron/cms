@@ -6,7 +6,7 @@ npm install
 
 COMPILE FRONTEND  
 go to frontend directory  
-gulp  
+gulp compile
 
 INSTALL BACKEND  
 go to backend directory  
@@ -19,11 +19,21 @@ SET THE REDIS PASSWORD
 using redis cli...   
 127.0.0.1:6379> CONFIG set requirepass 'def'  
 
-START APP  
+START APP (IN BROWSERSYNC MODE)  
 go to backend directory  
 gulp  
+go to frontend directory  
+gulp  
 
-go to http://localhost:3000  
+it will go to http://localhost:3001 automatically  
+
+START APP (IN NON-BROWSERSYNC MODE)  
+go to backend directory  
+gulp  
+go to frontend directory  
+gulp compile  
+
+http://localhost:3000  
 
 -----------------------------------------------------------------  
   

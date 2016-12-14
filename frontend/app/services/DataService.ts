@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
+import {Part} from '../models/Part';
+import {Amp} from '../models/Amp';
 
 @Injectable()
 export class DataService {
@@ -16,7 +18,6 @@ export class DataService {
     }
 
     login (username: string, password: string) {
-
         let headers = new Headers();
         headers.append('Content-Type', this.contentType);
 
@@ -30,7 +31,6 @@ export class DataService {
     }
 
     register (username: string, password: string, permissions: any) {
-
         let headers = new Headers();
         headers.append('Content-Type', this.contentType);
 
@@ -42,9 +42,6 @@ export class DataService {
     }
 
     updateUser (username: string, permissions: any) {
-        let headers = new Headers();
-        headers.append('Content-Type', this.contentType);
-
         return this.http.put(
             this.dbUrl + 'user',
             JSON.stringify({ username: username, permissions: permissions }),
@@ -53,11 +50,56 @@ export class DataService {
     }
 
     getUserPermissions (username: string) {
-        let headers = new Headers();
-        headers.append('Content-Type', this.contentType);
-
         return this.http.get(
             this.dbUrl + 'user?name=' + username,
+            { headers: this.getHeaders()}
+        )
+        .map((res: Response) => res.json());
+    }
+
+    postPart (part: Part) {
+        return this.http.post(
+            this.dbUrl + 'part',
+            JSON.stringify(part),
+            { headers: this.getHeaders()}
+        );
+    }
+
+    putPart (part: Part) {
+        return this.http.put(
+            this.dbUrl + 'part',
+            JSON.stringify(part),
+            { headers: this.getHeaders()}
+        );
+    }
+
+    getPart (partname: string) {
+        return this.http.get(
+            this.dbUrl + 'part?partname=' + partname,
+            { headers: this.getHeaders()}
+        )
+        .map((res: Response) => res.json());
+    }
+
+    postAmp (amp: Amp) {
+        return this.http.post(
+            this.dbUrl + 'amp',
+            JSON.stringify(amp),
+            { headers: this.getHeaders()}
+        );
+    }
+
+    getSubset (setName: string, pattern: string) {
+        return this.http.get(
+            this.dbUrl + `subset?set=${setName}&pattern=${pattern}`,
+            { headers: this.getHeaders()}
+        )
+        .map((res: Response) => res.json());
+    }
+
+    getExists (setName: string, pattern: string) {
+        return this.http.get(
+            this.dbUrl + `exists?set=${setName}&pattern=${pattern}`,
             { headers: this.getHeaders()}
         )
         .map((res: Response) => res.json());

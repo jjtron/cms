@@ -17,6 +17,7 @@ import { DataServiceMock } from '../mocks/DataServiceMock';
 import { Aml } from '../../app/components/aml/Aml';
 import { Parts } from '../../app/components/parts/Parts';
 import { Dwgs } from '../../app/components/dwgs/Dwgs';
+import {AmpPicker} from '../../app/components/aml/AmpPicker';
 
 import {BASEPATH} from '../../app/components/dashboard/config';
 
@@ -102,7 +103,8 @@ export function configureAppTests() {
         RegisterForm,
         Aml,
         Parts,
-        Dwgs
+        Dwgs,
+        AmpPicker
     ]
 })
 class TestModule {

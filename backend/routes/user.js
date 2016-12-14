@@ -6,6 +6,7 @@ var dalUserList = require('../dal/userList');
 var Boom = require('boom');
 var privateKey = require('../jwt/privateKey');
 var logger = require('winston');
+var redis = require('../redis');
 
 var role_mng = require('../role_mng');
 role_mng.use(function(req, act) {
@@ -27,6 +28,10 @@ router
     .post('/user',
             function(req, res) {
     			var errmsg = 'Unable to post new user';
+
+		    	// watch the part record sets for the new name, id, and aml
+		    	req.cmsDb.watch('username-set','userid-set');
+
                 dalUserList.postCreatedUser(req)
                     .then(function(result){
                     	if (result) {
@@ -38,13 +43,16 @@ router
                     })
                     .catch(function(error){
                         var boomErr;
-                        if (error.message === 'Duplicate key') {
+                        if (error.message.startsWith('Duplicate key')) {
                             boomErr = Boom.conflict(error.message);
-                        } else if (error.message === errmsg) {
+                        } else if (error.message.startsWith('Redis method error')) {
+		                    boomErr = Boom.badGateway(error.message);
+		                } else if (error.message === errmsg) {
                             boomErr = Boom.badImplementation(error.message)
                         } else {
                             boomErr = Boom.badImplementation(error.message)
                         }
+                        req.cmsDb.unwatch();
                         logger.error(error.message);
                         res.status(boomErr.output.statusCode);
                         res.json(boomErr.output);
@@ -54,7 +62,6 @@ router
 
     .put('/user',
     		jwtDecoder({secret: privateKey}),
-    		role_mng.middleware(),
     		role_mng.can('do this'),
             function(req, res) {
 				var errmsg = 'Unable to put permissions on user';
@@ -69,9 +76,11 @@ router
 	                })
 	                .catch(function(error){
 	                    var boomErr;
-                        if (error.message === 'Username not found') {
-                            boomErr = Boom.notFound(error.message);
-                        } else if (error.message === errmsg) {
+                        if (error.message.startsWith('Entity not found')) {
+                            boomErr = Boom.badData(error.message);
+                        } else if (error.message.startsWith('Redis method error')) {
+		                    boomErr = Boom.badGateway(error.message);
+		                } else if (error.message === errmsg) {
 	                        boomErr = Boom.badImplementation(error.message)
 	                    } else {
 	                        boomErr = Boom.badImplementation(error.message)
@@ -85,7 +94,6 @@ router
 
     .get('/user',
     		jwtDecoder({secret: privateKey}),
-    		role_mng.middleware(),
     		role_mng.can('do this'),
             function(req, res) {
 				var errmsg = 'Unable to get permissions on user';
@@ -100,9 +108,11 @@ router
 	                })
 	                .catch(function(error){
 	                    var boomErr;
-                        if (error.message === 'Username not found') {
-                            boomErr = Boom.notFound(error.message);
-                        } else if (error.message === errmsg) {
+                        if (error.message.startsWith('Entity not found')) {
+                            boomErr = Boom.badData(error.message);
+                        } else if (error.message.startsWith('Redis method error')) {
+		                    boomErr = Boom.badGateway(error.message);
+		                } else if (error.message === errmsg) {
 	                        boomErr = Boom.badImplementation(error.message)
 	                    } else {
 	                        boomErr = Boom.badImplementation(error.message)
@@ -116,12 +126,11 @@ router
 
     .get('/token',
     		jwtDecoder({secret: privateKey}),
-    		role_mng.middleware(),
     		role_mng.can('do this'),
             function(req, res) {
                 console.log('DECODED', req.user);
                 res.json('test ok');
             }
-    );
+    )
 
 module.exports = router;

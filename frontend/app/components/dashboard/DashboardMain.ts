@@ -25,19 +25,19 @@ import {Router} from '@angular/router';
         <div class="collapse navbar-collapse" id="menu-navbar">
           <ul class="nav navbar-nav">
                 <li [class.inactive]="!path.home" [class.active]="path.home" *ngIf="userAccess.home === 'true'">
-                    <a #home routerLink="{{basepath}}home">home</a>
+                    <a #home routerLink="{{basepath}}home">Home</a>
                 </li>
                 <li [class.inactive]="!path.parts" [class.active]="path.parts" *ngIf="userAccess.parts !== 'noaccess'">
-                    <a #parts routerLink="{{basepath}}parts">part</a>
+                    <a #parts routerLink="{{basepath}}parts">Parts</a>
                 </li>
                 <li [class.inactive]="!path.aml" [class.active]="path.aml" *ngIf="userAccess.aml !== 'noaccess'">
-                    <a #aml routerLink="{{basepath}}aml">aml</a>
+                    <a #aml routerLink="{{basepath}}aml">AML</a>
                 </li>
                 <li [class.inactive]="!path.dwgs" [class.active]="path.dwgs" *ngIf="userAccess.dwgs !== 'noaccess'">
-                    <a #dwgs routerLink="{{basepath}}dwgs">dwgs</a>
+                    <a #dwgs routerLink="{{basepath}}dwgs">Drawings</a>
                 </li>
                 <li [class.inactive]="!path.user" [class.active]="path.user" *ngIf="userAccess.admin === 'true'">
-                    <a #user routerLink="{{basepath}}user">user</a>
+                    <a #user routerLink="{{basepath}}user">Users</a>
                 </li>
           </ul>
         </div>

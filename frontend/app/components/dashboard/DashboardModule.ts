@@ -6,6 +6,7 @@ import {DashboardMain} from './DashboardMain';
 import {DashboardHome} from './DashboardHome';
 import {Parts} from '../parts/Parts';
 import {Aml} from '../aml/Aml';
+import {AmpPicker} from '../aml/AmpPicker';
 import {Dwgs} from '../dwgs/Dwgs';
 import {User} from '../user/User';
 import { MaterialModule } from '@angular/material';
@@ -17,6 +18,7 @@ import {BASEPATH} from './config';
         DashboardHome,
         Parts,
         Aml,
+        AmpPicker,
         Dwgs,
         User
     ],

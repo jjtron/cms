@@ -17,7 +17,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var user = require('./routes/user');
-var redis = require('./routes/redis');
+var parts = require('./routes/parts');
+var common = require('./routes/common');
 var login = require('./routes/login');
 
 // set up error logger and error log file
@@ -47,7 +48,8 @@ app.use(express.static(__dirname + '/../frontend'));
 // routes
 app.use('/', index);
 app.use('/', user);
-app.use('/', redis);
+app.use('/', parts);
+app.use('/', common);
 app.use('/', login);
 
 // catch 404 and forward to error handler
