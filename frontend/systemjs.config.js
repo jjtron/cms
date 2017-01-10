@@ -24,7 +24,7 @@
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
-      '@angular/material': 'npm:@angular/material/material.umd.js',
+      '@angular/material': 'npm:@angular/material/bundles/material.umd.js',
 
       // other libraries
       'rxjs':                      'npm:rxjs',
@@ -36,6 +36,7 @@
       'angular2-jwt':			   'npm:angular2-jwt/angular2-jwt.js',
       'jquery':			   		   'npm:jquery/dist/jquery.min.js',
       'bootstrap':			   	   'npm:bootstrap/dist/js/bootstrap.min.js',
+      'hammerjs': 				   'npm:hammerjs/hammer.js',
 
       // barrels
       'reducers':				   'app/reducers',
