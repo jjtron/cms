@@ -4,6 +4,7 @@ var run = require('gulp-run');
 var tslint = require("gulp-tslint");
 var typescript = require('gulp-tsc');
 var browserSync = require('browser-sync').create();
+var minify = require('gulp-minify');
 
 gulp.task("tslint", () =>
 gulp.src("./app/**/*.ts")
@@ -92,4 +93,20 @@ gulp.task('default', ['browser-sync:watch'], function () {
     gulp.watch("app/**/*.js", ['js-watch']);
 });
 
-gulp.task('browser-sync:watch', ['tslint', 'compile', 'sass', 'compile:watch'])
+gulp.task('browser-sync:watch', ['tslint', 'compile', 'sass', 'compile:watch']);
+
+gulp.task('build:compress', ['build'], function() {
+	  gulp.src('cms-sfx.js')
+	    .pipe(minify({
+	        ext:{
+	            src:'-debug.js',
+	            min:'.js'
+	        },
+	        exclude: ['tasks']
+	    }))
+	    .pipe(gulp.dest('./'))
+	});
+
+gulp.task('build', function() {
+	return run('npm run build').exec();
+});
