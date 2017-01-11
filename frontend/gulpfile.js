@@ -95,7 +95,7 @@ gulp.task('default', ['browser-sync:watch'], function () {
 
 gulp.task('browser-sync:watch', ['tslint', 'compile', 'sass', 'compile:watch']);
 
-gulp.task('build:compress', ['build'], function() {
+gulp.task('compress', function() {
 	  gulp.src('cms-sfx.js')
 	    .pipe(minify({
 	        ext:{
@@ -106,7 +106,3 @@ gulp.task('build:compress', ['build'], function() {
 	    }))
 	    .pipe(gulp.dest('./'))
 	});
-
-gulp.task('build', function() {
-	return run('npm run build').exec();
-});

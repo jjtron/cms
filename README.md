@@ -40,8 +40,7 @@ http://localhost:3000
 TO DISTRIBUTE JS FILES WITH AN SFX (SELF-EXECUTING) JS FILE:  
 go to frontend directory  
 copy index-sfx.html file to index.html  
-npm run tsc  
-node build.js  
+npm run build-compress  
 go to backend directory  
 gulp  
 go to http://localhost:3000  

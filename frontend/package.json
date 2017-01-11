@@ -1,5 +1,5 @@
 {
-  "name": "angular-quickstart",
+  "name": "cms",
   "version": "1.0.0",
   "description": "QuickStart package.json from the documentation, supplemented with testing support",
   "scripts": {
@@ -15,7 +15,12 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "webdriver:update": "webdriver-manager update",
-    "build": "node build.js"
+    "build": "tsc && node build.js",
+    "build-compress": "tsc && gulp sass && node build.js && gulp compress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jjtron/cms.git"
   },
   "keywords": [],
   "author": "",
@@ -91,6 +96,5 @@
     "systemjs-builder": "^0.15.34",
     "tslint": "^3.15.1",
     "typescript": "^2.0.3"
-  },
-  "repository": {}
+  }
 }
